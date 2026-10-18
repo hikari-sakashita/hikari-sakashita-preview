@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SCHEDULE | Hikari Sakashita ｜ 坂下 光</title><meta name="description" content="Hikari Sakashita（坂下 光）の出演スケジュール。ドラマー、DJ、音楽家として参加するライブ、DJイベント、セッションなどの開催情報を掲載。">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+/* Schedule image viewer */
+[data-content="schedule"] img { cursor: zoom-in; }
+.schedule-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.92); display: none; align-items: center; justify-content: center; padding: 56px 12px 22px; box-sizing: border-box; }
+.schedule-lightbox.is-open { display: flex; }
+.schedule-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.schedule-lightbox-close { position: absolute; right: 14px; top: 10px; background: transparent; border: 0; color: white; font-size: 40px; line-height: 1; padding: 10px; cursor: pointer; }
+</style>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Hikari Sakashita ｜ 坂下 光">
+</head><body>
+<header class="site-header"><a class="brand" href="index.html">Hikari Sakashita ｜ 坂下 光</a>
+<nav class="desktop-nav">
+<a href="index.html">TOP</a><a href="profile.html">PROFILE</a><a href="schedule.html">SCHEDULE</a><a href="archive.html">ARCHIVE</a><a href="contact.html">CONTACT</a>
+</nav>
+<button class="menu-btn" aria-label="Open menu">MENU</button></header>
+
+<div class="overlay">
+  <div class="overlay-top"><a class="brand" href="index.html">Hikari Sakashita ｜ 坂下 光</a><button class="close" aria-label="Close menu">×</button></div>
+  <nav><a href="index.html">TOP</a><a href="profile.html">PROFILE</a><a href="schedule.html">SCHEDULE</a><a href="archive.html">ARCHIVE</a><a href="contact.html">CONTACT</a></nav>
+</div>
+
+
+<main>
+  <h1 class="page-title">SCHEDULE</h1>
+  <div class="content-list" data-content="schedule"></div>
+</main>
+<div class="schedule-lightbox" id="schedule-lightbox" role="dialog" aria-modal="true" aria-label="イベント画像の拡大表示" aria-hidden="true"><button class="schedule-lightbox-close" type="button" aria-label="閉じる">×</button><img alt=""></div>
+<footer><span class="footer-credit">© Hikari Sakashita ｜ 坂下 光</span><a class="footer-bandcamp" href="https://hikari-sakashita.bandcamp.com" target="_blank" rel="noopener noreferrer" aria-label="Bandcamp（新しいタブで開く）" title="Bandcamp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M8.3 5H24l-8.3 14H0z" fill="currentColor"/></svg></a></footer><script src="assets/main.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/render-content.js"></script>
+
+<script>
+(function () {
+  const viewer = document.getElementById('schedule-lightbox');
+  const enlarged = viewer.querySelector('img');
+  let previousFocus = null;
+  function closeViewer() {
+    viewer.classList.remove('is-open');
+    viewer.setAttribute('aria-hidden', 'true');
+    enlarged.removeAttribute('src');
+    document.body.style.overflow = '';
+    if (previousFocus) previousFocus.focus();
+  }
+  document.querySelector('[data-content="schedule"]').addEventListener('click', function (event) {
+    const img = event.target.closest('img');
+    if (!img || !this.contains(img)) return;
+    event.preventDefault();
+    previousFocus = document.activeElement;
+    enlarged.src = img.currentSrc || img.src;
+    enlarged.alt = img.alt || 'イベント画像';
+    viewer.classList.add('is-open');
+    viewer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    viewer.querySelector('button').focus();
+  });
+  viewer.addEventListener('click', function (event) {
+    if (event.target === viewer || event.target.closest('.schedule-lightbox-close')) closeViewer();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && viewer.classList.contains('is-open')) closeViewer();
+  });
+})();
+</script>
+</body></html>
